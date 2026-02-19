@@ -1,9 +1,16 @@
+export interface TeamMember {
+  name: string;
+  imageUrl: string | null;
+}
+
 export interface ShiftRoom {
   id: string;
   roomName: string;
+  color: string;
   title: string;
   description: string;
-  team: string[];
+  team: TeamMember[];
+  imageUrl: string | null;
   start?: string;
   end?: string;
 }
@@ -13,6 +20,5 @@ export interface ShiftGroup {
   date: string;
   start: string;
   end: string;
-  color: string;
-  rooms: ShiftRoom[];
+  shifts: ShiftRoom[];
 }

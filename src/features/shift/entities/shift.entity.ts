@@ -3,6 +3,11 @@ import {
 } from 'typeorm';
 import { ShiftGroupEntity } from './shift-group.entity';
 
+export interface TeamMember {
+  name: string;
+  imageUrl: string | null;
+}
+
 @Entity('shift_rooms')
 export class ShiftRoomEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -20,8 +25,11 @@ export class ShiftRoomEntity {
   @Column({ type: 'text' })
   description!: string;
 
-  @Column({ type: 'simple-array' })
-  team!: string[];
+  @Column({ type: 'jsonb' })
+  team!: TeamMember[];
+
+  @Column({ type: 'text', nullable: true })
+  imageUrl!: string | null;
 
   @Column({ type: 'timestamptz', nullable: true })
   start!: string | null;

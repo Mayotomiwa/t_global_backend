@@ -1,16 +1,26 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray, IsDateString, IsHexColor, IsOptional,
-  IsString, ValidateNested,
+  IsString, IsUrl, ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+
+export class TeamMemberDto {
+  @ApiProperty() @IsString() name!: string;
+  @ApiPropertyOptional() @IsOptional() @IsUrl() imageUrl?: string | null;
+}
 
 export class CreateShiftRoomDto {
   @ApiProperty() @IsString() roomName!: string;
   @ApiProperty() @IsHexColor() color!: string;
   @ApiProperty() @IsString() title!: string;
   @ApiProperty() @IsString() description!: string;
-  @ApiProperty({ type: [String] }) @IsArray() @IsString({ each: true }) team!: string[];
+  @ApiProperty({ type: [TeamMemberDto] })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => TeamMemberDto)
+  team!: TeamMemberDto[];
+  @ApiPropertyOptional() @IsOptional() @IsUrl() imageUrl?: string | null;
   @ApiPropertyOptional() @IsOptional() @IsDateString() start?: string;
   @ApiPropertyOptional() @IsOptional() @IsDateString() end?: string;
 }
