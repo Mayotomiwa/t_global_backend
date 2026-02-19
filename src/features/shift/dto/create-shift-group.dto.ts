@@ -8,6 +8,7 @@ import { Type } from 'class-transformer';
 export class TeamMemberDto {
   @ApiProperty() @IsString() name!: string;
   @ApiPropertyOptional() @IsOptional() @IsUrl() imageUrl?: string | null;
+  @ApiPropertyOptional() @IsOptional() @IsString() notes?: string | null;
 }
 
 export class CreateShiftRoomDto {

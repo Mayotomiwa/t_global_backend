@@ -6,6 +6,7 @@ import { ShiftGroupEntity } from './shift-group.entity';
 export interface TeamMember {
   name: string;
   imageUrl: string | null;
+  notes: string | null;
 }
 
 @Entity('shift_rooms')

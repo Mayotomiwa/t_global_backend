@@ -1,6 +1,7 @@
 export interface TeamMember {
   name: string;
   imageUrl: string | null;
+  notes: string | null;
 }
 
 export interface ShiftRoom {
