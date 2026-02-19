@@ -4,8 +4,7 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    dockerCommand: node dist/main   # optional override
-    plan: free                      # or starter, etc.
+    plan: free
     envVars:
       - key: NODE_ENV
         value: production
