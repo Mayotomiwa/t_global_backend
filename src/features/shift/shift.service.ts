@@ -49,11 +49,13 @@ export class ShiftService implements OnModuleInit {
     return saved;
   }
 
-  async findAll(room?: string, date?: string): Promise<ShiftGroupEntity[]> {
+  async findAll(room?: string, date?: string) {
     const qb = this.groupRepo
       .createQueryBuilder('group')
+      .select(['group.id', 'group.date', 'group.start', 'group.end', 'group.isActive'])
       .leftJoinAndSelect('group.shifts', 'shift')
-      .where('group.isActive = :isActive', { isActive: true });
+      .where('group.isActive = :isActive', { isActive: true })
+      .addOrderBy('shift.start', 'ASC', 'NULLS LAST');
 
     if (date) {
       qb.andWhere('group.date = :date', { date });
@@ -62,7 +64,14 @@ export class ShiftService implements OnModuleInit {
       qb.andWhere('shift.roomName = :room', { room });
     }
 
-    return qb.getMany();
+    const groups = await qb.getMany();
+    return groups.map((group) => ({
+      ...group,
+      shifts: group.shifts.map(({ team, ...shift }) => ({
+        ...shift,
+        team: team.map((m) => ({ name: m.name, imageUrl: m.imageUrl })),
+      })),
+    }));
   }
 
   async findOne(groupId: string, roomId: string): Promise<ShiftRoomEntity> {
