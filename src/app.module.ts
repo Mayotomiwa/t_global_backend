@@ -5,11 +5,12 @@ import { ShiftModule } from './features/shift/shift.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfigAsync } from './config/typeorm.config';
 import { PublicationsModule } from './features/publications/publications.module';
+import { ProfileModule } from './features/profile/profile.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
-  TypeOrmModule.forRootAsync(typeOrmConfigAsync), ShiftModule, PublicationsModule],
+  TypeOrmModule.forRootAsync(typeOrmConfigAsync), ShiftModule, PublicationsModule, ProfileModule],
   controllers: [AppController],
   providers: [AppService],
 })
