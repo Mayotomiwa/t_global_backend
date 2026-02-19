@@ -17,14 +17,11 @@ export class ShiftGroupEntity {
   @Column({ type: 'timestamptz' })
   end: string;
 
-  @Column({ length: 7 })
-  color: string;
-
-  @OneToMany(() => ShiftRoomEntity, (room) => room.group, {
+  @OneToMany(() => ShiftRoomEntity, (shift) => shift.group, {
     cascade: true,
     eager: true,
   })
-  rooms: ShiftRoomEntity[];
+  shifts: ShiftRoomEntity[] = [];
 
   @Column({ default: true })
   isActive: boolean;
