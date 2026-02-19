@@ -17,6 +17,9 @@ export class ShiftGroupEntity {
   @Column({ type: 'timestamptz' })
   end: string;
 
+  @Column({ length: 7 })
+  color!: string;
+
   @OneToMany(() => ShiftRoomEntity, (shift) => shift.group, {
     cascade: true,
     eager: true,

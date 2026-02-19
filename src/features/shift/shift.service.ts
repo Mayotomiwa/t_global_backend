@@ -21,7 +21,7 @@ export class ShiftService implements OnModuleInit {
     const groups = seeds.map((seed) =>
       this.groupRepo.create({
         ...seed,
-        rooms: (seed.rooms ?? []) as ShiftRoomEntity[],
+        shifts: (seed.shifts ?? []) as ShiftRoomEntity[],
       }),
     );
     await this.groupRepo.save(groups);
@@ -43,7 +43,7 @@ export class ShiftService implements OnModuleInit {
       start: dto.start,
       end: dto.end,
       color: dto.color,
-      rooms: dto.rooms.map((r) => this.roomRepo.create(r)),
+      shifts: dto.rooms.map((r) => this.roomRepo.create(r)),
     });
     const saved = await this.groupRepo.save(group);
     this.logger.log(`Created shift group ${saved.id}`);
@@ -53,14 +53,14 @@ export class ShiftService implements OnModuleInit {
   async findAll(room?: string, date?: string): Promise<ShiftGroupEntity[]> {
     const qb = this.groupRepo
       .createQueryBuilder('group')
-      .leftJoinAndSelect('group.rooms', 'room')
+      .leftJoinAndSelect('group.shifts', 'shift')
       .where('group.isActive = :isActive', { isActive: true });
 
     if (date) {
       qb.andWhere('group.date = :date', { date });
     }
     if (room) {
-      qb.andWhere('room.roomName = :room', { room });
+      qb.andWhere('shift.roomName = :room', { room });
     }
 
     return qb.getMany();
