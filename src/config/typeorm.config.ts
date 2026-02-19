@@ -8,6 +8,7 @@ export const typeOrmConfigAsync: TypeOrmModuleAsyncOptions = {
         type: 'postgres' as const,
         url: process.env.DATABASE_URL,
         entities: [ShiftGroupEntity, ShiftRoomEntity, PublicationEntity],
+        migrations: ['dist/migrations/*.js'],
         migrationsRun: process.env.NODE_ENV === 'production',
         synchronize: process.env.NODE_ENV !== 'production',
         ssl:
