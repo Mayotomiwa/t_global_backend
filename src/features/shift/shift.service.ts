@@ -42,8 +42,7 @@ export class ShiftService implements OnModuleInit {
       date: dto.date,
       start: dto.start,
       end: dto.end,
-      color: dto.color,
-      shifts: dto.rooms.map((r) => this.roomRepo.create(r)),
+      shifts: dto.shifts.map((r) => this.roomRepo.create(r)),
     });
     const saved = await this.groupRepo.save(group);
     this.logger.log(`Created shift group ${saved.id}`);
