@@ -9,7 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
-  TypeOrmModule.forRoot(typeOrmConfigAsync), ShiftModule, PublicationsModule],
+  TypeOrmModule.forRootAsync(typeOrmConfigAsync), ShiftModule, PublicationsModule],
   controllers: [AppController],
   providers: [AppService],
 })

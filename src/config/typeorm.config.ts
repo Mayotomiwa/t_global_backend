@@ -9,7 +9,7 @@ export const typeOrmConfigAsync: TypeOrmModuleAsyncOptions = {
         url: process.env.DATABASE_URL,
         entities: [ShiftGroupEntity, ShiftRoomEntity, PublicationEntity],
         migrationsRun: process.env.NODE_ENV === 'production',
-        synchronize: process.env.NODE_ENV === 'production',
+        synchronize: process.env.NODE_ENV !== 'production',
         ssl:
             process.env.NODE_ENV === 'production'
                 ? { rejectUnauthorized: false }
