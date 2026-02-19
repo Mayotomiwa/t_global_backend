@@ -17,5 +17,6 @@ WORKDIR /app
 COPY pnpm-lock.yaml package.json ./
 RUN pnpm install --frozen-lockfile --prod
 COPY --from=builder /app/dist ./dist
+COPY migrate.js ./
 EXPOSE 3000
-CMD ["sh", "-c", "node migrate.ts && node dist/main"]
+CMD ["sh", "-c", "node migrate.js && node dist/main"]
