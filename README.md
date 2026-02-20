@@ -57,6 +57,10 @@ pnpm start:prod
 
 # Debug mode
 pnpm start:debug
+
+# Development Mode (with docker)
+docker compose -f docker-compose.dev.yml
+
 ```
 
 Once running, the API is accessible at `http://localhost:3000`, and interactive Swagger documentation is available at `http://localhost:3000/docs`.
@@ -79,6 +83,15 @@ pnpm migration:revert
 
 # Show migration status
 pnpm migration:show
+
+# Running migrations with docker
+docker compose up db -d
+pnpm migration:run
+pnpm run build
+
+# if needed
+docker compose stop
+
 ```
 
 During development, TypeORM runs with `synchronize: true`, which automatically applies schema updates without explicit migrations. In production, migrations run automatically (`migrationsRun: true`).
